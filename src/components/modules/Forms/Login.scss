@@ -1,0 +1,33 @@
+.form-login {
+  background-image: url("../../../assets/image/backdrop_login_rigister.jpg");
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+
+  .form-input {
+    &:focus,
+    &:not(:placeholder-shown) {
+      & + .form-title {
+        font-size: 1.3rem;
+        top: -12px;
+        left: 8px;
+        color: #565659;
+      }
+    }
+  }
+
+  .form-title {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+
+    display: block;
+    padding: 0 15px;
+
+    line-height: 1.5;
+    background-color: #26252a;
+
+    transition: all 0.2s ease-in-out;
+    pointer-events: none;
+  }
+}

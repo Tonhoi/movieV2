@@ -1,0 +1,13 @@
+.wraper-detail {
+  .content-review {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+  }
+  .gradient {
+    background: linear-gradient(rgba(52, 73, 94, 0.2549019607843137), #333 90%);
+  }
+}
