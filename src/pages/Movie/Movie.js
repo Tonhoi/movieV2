@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 // import images from "../../assets/image";
 
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -17,12 +17,13 @@ import { Filter } from "../../layouts/DefaultLayouts/Filter";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Movie = () => {
+  console.log("re-render");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { page } = useParams();
 
   const loading = useSelector((prev) => prev.callDiscoverMovies.loading);
-  const currentPage = useSelector((prev) => prev.callDiscoverMovies.counter);
+  // const currentPage = useSelector((prev) => prev.callDiscoverMovies.counter);
   const discoverMovies = useSelector(
     (prev) => prev.callDiscoverMovies.callDiscoverMovie
   );
@@ -46,15 +47,14 @@ const Movie = () => {
     };
 
     fetch();
-  }, [currentPage, dispatch]);
+  }, [dispatch, page, navigate]);
 
   const handleHref = useCallback(
     (e) => {
       navigate(`/movie/list/${e.selected + 1}`);
       dispatch(setCounter(e.selected + 1));
-      document.documentElement.scrollTop = 0;
     },
-    [currentPage, dispatch]
+    [navigate, dispatch]
   );
 
   return (
@@ -73,14 +73,17 @@ const Movie = () => {
             }
           />
         ) : (
-          <SkeletonTheme baseColor="#202020" highlightColor="#444">
-            <Skeleton
-              count={20}
-              width="100%"
-              inline
-              containerClassName="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-[24px]"
-              className="h-[265px]"
-            />
+          <SkeletonTheme baseColor="#202020" highlightColor="#888">
+            <div>
+              <Skeleton
+                count={20}
+                width="100%"
+                inline
+                containerClassName="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-[24px] mb-[20px]"
+                className="h-[250px] md:h-[300px] rounded-[10px]"
+                wrapper={Box}
+              />
+            </div>
           </SkeletonTheme>
         )}
 
@@ -92,5 +95,26 @@ const Movie = () => {
     </>
   );
 };
+
+function Box({ children }) {
+  return (
+    <div
+      style={{
+        display: "block",
+        lineHeight: 2,
+        width: "100%",
+        paddingRight: "10px",
+        paddingLeft: "10px",
+      }}
+    >
+      <div>
+        {children}
+        <div className="mt-[12px]">
+          <Skeleton />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default Movie;

@@ -15,3 +15,14 @@ export const LANGUEGE = [
   { value: "Thai", label: "Thai" },
   { value: "German", label: "German" },
 ];
+
+export const OPTIONS = [
+  {
+    value: "en",
+    label: "English",
+  },
+  {
+    value: "vi",
+    label: "Tiếng Việt",
+  },
+];

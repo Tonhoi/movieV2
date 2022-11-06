@@ -1,42 +1,56 @@
-.category {
-  .item {
-    position: relative;
+header {
+  .category {
+    color: #fff;
+    .item {
+      position: relative;
 
-    padding: 0 16px 8px;
-    margin-bottom: -8px;
+      padding: 0 16px 8px;
+      margin-bottom: -8px;
+      cursor: pointer;
+      &:hover {
+        color: var(--color-text);
+      }
 
-    cursor: pointer;
-    &:hover {
-      color: var(--color-hover-category);
-    }
+      &:hover::after {
+        width: 100%;
+      }
 
-    &:hover::after {
-      width: 100%;
-    }
+      &::after {
+        content: "";
 
-    &::after {
-      content: "";
+        position: absolute;
+        top: 100%;
+        left: 0;
 
-      position: absolute;
-      top: 100%;
-      left: 0;
+        width: 0;
+        height: 2px;
 
-      width: 0;
-      height: 2px;
+        background-color: var(--color-text);
 
-      background-color: var(--color-hover-category);
-
-      transition: width linear 0.3s;
+        transition: width linear 0.3s;
+      }
     }
   }
-}
+  .option {
+    color: #fff;
+  }
 
-input:checked ~ .nav-mobile {
-  transform: translateX(0);
-}
-
-input:checked ~ .overlay {
-  display: block;
+  .custom-select__control {
+    background-color: transparent;
+    border: none;
+    border: 1px solid #fff;
+    &:hover {
+      border: 1px solid #fff;
+    }
+    & > div:last-child span {
+      display: none;
+    }
+    & .custom-select__placeholder,
+    & .custom-select__single-value,
+    & .custom-select__input-container input {
+      color: #fff !important;
+    }
+  }
 }
 
 .nav-mobile {
@@ -50,7 +64,7 @@ input:checked ~ .overlay {
     cursor: pointer;
     position: relative;
     &:hover {
-      color: var(--color-hover-category);
+      color: var(--color-text);
     }
 
     &:hover::after {
@@ -66,7 +80,7 @@ input:checked ~ .overlay {
       width: 0;
       height: 2px;
 
-      background-color: var(--color-hover-category);
+      background-color: var(--color-text);
 
       transition: width linear 0.3s;
     }

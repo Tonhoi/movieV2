@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { DiscoverMovieApi } from "../../api";
 
 export const callDiscoverMovie = createAsyncThunk(
   "callDiscoverMovie/callDiscoverMovie",
   async (currentPage = 1) => {
-    const discoverMovies = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=d6c392186e19bae2e1addaadb1677274&language=en-US&sort_by=popularity.desc&page=${currentPage}&release_date.gte=&release_date.lte=&vote_average.gte=&vote_average.lte=&with_genres=&with_original_language=`
-    );
-    return discoverMovies.data;
+    const discoverMovies = await DiscoverMovieApi.getByPage(currentPage);
+    return discoverMovies;
   }
 );
 

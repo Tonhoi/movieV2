@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,6 +15,7 @@ const Tv = () => {
   const loading = useSelector((prev) => prev.callTvMovies.loading);
   const tvMovies = useSelector((prev) => prev.callTvMovies.callTvMovie);
   const currentPage = useSelector((prev) => prev.callTvMovies.counter);
+  console.log(tvMovies);
 
   // const [state, setState] = useState([
   //   {
@@ -34,24 +35,21 @@ const Tv = () => {
     };
 
     fetch();
-  }, [currentPage, dispatch]);
+  }, [currentPage, dispatch, page, navigate]);
 
   const handleHref = useCallback(
     (e) => {
       navigate(`/tv/list/${e.selected + 1}`);
       dispatch(setCounter(e.selected + 1));
-      document.documentElement.scrollTop = 0;
     },
-    [currentPage, dispatch]
+    [dispatch, navigate]
   );
 
   return (
     <>
       <div
         className={`bg-[url(https://my-movie-tmdb.netlify.app/static/media/backdrop_login.e682b290.jpg)] bg-cover object-cover pt-[150px] bg-center h-[300px]`}
-      >
-        image
-      </div>
+      ></div>
       <Filter />
 
       <div className="grid-system wide">

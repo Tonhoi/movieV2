@@ -1,0 +1,72 @@
+{
+    "header": {
+        "home": "HOME",
+        "movie": "MOVIE",
+        "tv": "TV",
+        "topRated": "TOP RATED",
+        "search": "search",
+        "option": {
+            "login": "Login"
+        }
+    },
+    "content": {
+        "popularMovie": "Popular Movie",
+        "upComing": "UP COMING",
+        "nowPlaying": "NOW PLAYING",
+        "viewAll": "View All",
+        "topTrending": "TOP TRENDING",
+        "airingToday": "AIRING TODAY",
+        "viewer": "Viewer"
+    },
+    "filter": {
+        "gender": "GENDER",
+        "language": "LANGUEGE",
+        "rating": "RATING",
+        "userRating": "User Rating",
+        "from": "FROM",
+        "to": "TO",
+        "button": "FILTER"
+    },
+    "detailPage" : {
+        "header": {
+            "watchNow": "Watch now",
+            "watchTrailer": "Watch Trailer",
+            "addToFavorites": "Add to Favorites"
+        },
+        "content": {
+            "credit": "CREDIT",
+            "review": "REVIEW",
+            "photos": "PHOTOS",
+            "feedback": "You may also like...",
+            "recommend": "We Recommended for you"
+        }
+    },
+
+    "footer" : {
+        "header": {
+            "movieCategory": "Movie Categories",
+            "tvShowCategory": "TV Show Categories",
+            "contactWithMe": "Contact with me"
+        },
+        "content": {
+            "action": "Action",
+            "adventure": "Adventure",
+            "animation": "Animation",
+            "comedy": "Comedy",
+            "crime": "Crime",
+            "drama" : "Drama",
+            "fantacy": "Fantacy",
+            "horror": "Horror",
+            "mystrey":"Mystrey",
+            "romance": "Romance",
+            "valentineDay": "Valentine Day",
+            "comedies": "Comedies",
+            "scaryTVSeries": "Scary TV Series",
+            "best2021": "Best 2021",
+            "crimeTV": "Crime TV",
+            "realityTV": "Reality TV",
+            "cartoon": "Cartoon",
+            "tVNews": "TV News"
+        }
+    }
+}

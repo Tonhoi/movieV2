@@ -1,0 +1,72 @@
+{
+    "header": {
+        "home": "Trang chủ",
+        "movie": "Phim",
+        "tv": "Tv",
+        "topRated": "BXH",
+        "search": "Tìm kiếm",
+        "option": {
+            "login": "Đăng nhập"
+        }
+    },
+    "content": {
+        "popularMovie": "Phim phổ biến",
+        "upComing": "SẮP RA MẮT",
+        "nowPlaying": "CHƠI NGAY BÂY GIỜ",
+        "viewAll": "Xem tất cả",
+        "topTrending": "TOP TRENDING",
+        "airingToday": "AIRING TODAY",
+        "viewer": "Lượt xem"
+    },
+    "filter": {
+        "gender": "Thể loại",
+        "language": "Ngôn ngữ",
+        "rating": "Xếp hạng",
+        "userRating": "Người dùng xếp hạng",
+        "from": "Từ",
+        "to": "Đến",
+        "button": "Lọc"
+    },
+    "detailPage" : {
+        "header": {
+            "watchNow": "Xem bây giờ",
+            "watchTrailer": "Xem trailer",
+            "addToFavorites": "Thêm vào danh sách yêu thích"
+        },
+        "content": {
+            "credit": "CREDIT",
+            "review": "Thảo luận",
+            "photos": "Ảnh",
+            "feedback": "Có lẽ bạn sẽ thích...",
+            "recommend": "Chúng tôi khuyến nghị cho bạn"
+        }
+    },
+
+    "footer" : {
+        "header": {
+            "movieCategory": "Danh mục phim",
+            "tvShowCategory": "Danh mục chương trình truyền hình",
+            "contactWithMe": "Liên lạc với tôi "
+        },
+        "content": {
+            "action": "Hoạt động",
+            "adventure": "phiêu lưu",
+            "animation": "hoạt hình",
+            "comedy": "Hài kịch",
+            "crime": "Tội ác",
+            "drama" : "Kịch",
+            "fantacy": "Tưởng tượng",
+            "horror": "Rùng rợn",
+            "mystrey":"Mystrey",
+            "romance": "Lãng mạn",
+            "valentineDay": "Ngày lễ tình nhân",
+            "comedies": "Phim hài",
+            "scaryTVSeries": "Rùng rợn",
+            "best2021": "Tốt nhất năm 2021",
+            "crimeTV": "tội phạm",
+            "realityTV": "thực tế",
+            "cartoon": "Hoạt hình",
+            "tVNews": "Tin tức"
+        }
+    }
+}

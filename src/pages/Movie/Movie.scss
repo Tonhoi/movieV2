@@ -12,7 +12,7 @@
     & .custom-select__placeholder,
     & .custom-select__single-value,
     & .custom-select__input-container input {
-      color: #f9ab00 !important;
+      color: var(--color-text) !important;
     }
   }
 }

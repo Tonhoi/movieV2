@@ -2,7 +2,12 @@
   --white-color: #fff;
   --black-color: #000;
   --primary-color: #1a191f;
-  --color-hover-category: #f9ab00;
+  --color-text: #f9ab00;
+}
+
+[data-theme="light"] {
+  --white-color: #000;
+  --primary-color: #fff;
 }
 
 * {
@@ -16,4 +21,5 @@ html {
 
 body {
   font-size: 1.6rem;
+  -webkit-tap-highlight-color: transparent;
 }

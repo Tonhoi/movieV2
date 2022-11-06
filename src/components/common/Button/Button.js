@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, memo } from "react";
 import { Link } from "react-router-dom";
 
 const Button = ({
@@ -23,6 +23,7 @@ const Button = ({
     prop.href = href;
     Comp = "a";
   }
+
   const classes = `px-[16px] py-[6px] transition-all rounded-[10px]  ${className}`;
 
   return (
@@ -34,4 +35,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default memo(Button);

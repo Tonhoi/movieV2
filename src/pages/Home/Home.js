@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-
-import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 // tabs ui
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   ArrowRightIconV2,
   ArrowRightIconV3,
@@ -13,50 +15,48 @@ import {
 
 import "./Home.scss";
 import { TabsUi } from "./components/TabsUi";
-import { Slider } from "./components/Slider";
+import { SliderPopularMovie } from "./components/Slider";
 import { MainSlide } from "./components/Slider/MainSlide";
 import Button from "../../components/common/Button/Button";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { callPopularMovie } from "../../store/CallPopularMovie/slice";
+import {
+  SLIDE_HAVE_BACKDROP,
+  SLIDE_NO_BACKDROP,
+} from "../../consts/ReponsiveSlide";
+import { UpCommingApi, NowPlayingApi, TrendingApi } from "../../api";
+import AiringTodayApi from "../../api/AiringTodayApi";
+import AiringToday from "./components/AiringToday/AiringToday";
 
 const Home = () => {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   const currentPageTv = useSelector((prev) => prev.callTvMovies.counter);
   const currentPageMovie = useSelector(
     (prev) => prev.callDiscoverMovies.counter
   );
+  const popularMovies = useSelector(
+    (prev) => prev.callPopularMovie.callPopularMovie.results
+  );
 
-  const [popularMovies, setPopularMovies] = useState([]);
-  const [topRateds, setTopRateds] = useState([]);
   const [upComings, setUpComings] = useState([]);
   const [nowPlayings, setNowPlayings] = useState([]);
   const [trendings, setTrendings] = useState([]);
   const [topPopularMovie, setTopPopularMovie] = useState([]);
+  const [airingToday, setAiringToday] = useState([]);
   useEffect(() => {
     const fetch = async () => {
-      const popularMovie = await axios.get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=9568cdb91fe0c79af33b87e59bb90d25&language=en-US&page=1"
-      );
-      const topRated = await axios.get(
-        "https://api.themoviedb.org/3/movie/top_rated?api_key=9568cdb91fe0c79af33b87e59bb90d25&language=en-US&page=1"
-      );
-      const upComing = await axios.get(
-        "https://api.themoviedb.org/3/movie/upcoming?api_key=9568cdb91fe0c79af33b87e59bb90d25&language=en-US&page=1"
-      );
-      const nowPlaying = await axios.get(
-        "https://api.themoviedb.org/3/movie/now_playing?api_key=9568cdb91fe0c79af33b87e59bb90d25&language=en-US&page=1"
-      );
-      const trending = await axios.get(
-        "https://api.themoviedb.org/3/trending/all/day?api_key=9568cdb91fe0c79af33b87e59bb90d25"
-      );
-      console.log(popularMovie.data.results);
-      setTopPopularMovie(
-        popularMovie.data.results[Math.floor(Math.random() * 12)]
-      );
-      setPopularMovies(popularMovie.data.results.slice(0, 12));
-      setTopRateds(topRated.data.results.slice(0, 12));
-      setUpComings(upComing.data.results.slice(0, 12));
-      setNowPlayings(nowPlaying.data.results.slice(0, 12));
-      setTrendings(trending.data.results);
+      const upComing = await UpCommingApi.getByPage(1);
+      const nowPlaying = await NowPlayingApi.getByPage(1);
+      const trending = await TrendingApi.getAll();
+      const airingToday = await AiringTodayApi.getAll();
+      await dispatch(callPopularMovie(1));
+
+      setTopPopularMovie(nowPlaying.results[Math.floor(Math.random() * 19)]);
+      setUpComings(upComing.results.slice(0, 12));
+      setNowPlayings(nowPlaying.results.slice(0, 12));
+      setTrendings(trending.results);
+      setAiringToday(airingToday.results.slice(0, 12));
     };
 
     fetch();
@@ -65,30 +65,14 @@ const Home = () => {
   return (
     <>
       {/* slider */}
-      <Slider
+      <SliderPopularMovie
         items={popularMovies}
-        title="Popular Movie"
+        animationScale={`transition-all duration-[500ms] ease-linear group-hover:scale-110 p-[5px] rounded-[25px] sm:rounded-[35px] sm:p-[20px] h-[200px] sm:h-[250px]  md:h-[300px] xl:h-[400px]`}
+        title={t("content.popularMovie")}
         isBgSlider
         absoluteCenter
         reponesiveImage
-        customBreakPoints={{
-          "@0.00": {
-            slidesPerView: 2,
-            spaceBetween: 10,
-          },
-          "@0.75": {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          "@1.00": {
-            slidesPerView: 3,
-            spaceBetween: 40,
-          },
-          "@1.50": {
-            slidesPerView: 4,
-            spaceBetween: 40,
-          },
-        }}
+        customBreakPoints={SLIDE_HAVE_BACKDROP}
       />
 
       {/* tabs ui */}
@@ -97,28 +81,21 @@ const Home = () => {
           <Tabs disableUpDownKeys={true}>
             <div className="mb-[24px]">
               <TabList className={"ml-[12px]"}>
-                <Tab>TOP RATED</Tab>
-                <Tab>UP COMING</Tab>
-                <Tab>NOW PLAYING</Tab>
+                <Tab>{t("content.upComing")}</Tab>
+                <Tab>{t("content.nowPlaying")}</Tab>
               </TabList>
               <Button
                 className={
-                  " bg-[#3f51b5] flex items-center gap-[8px] mr-[12px] hover:bg-[#303f9f] ml-auto"
+                  " bg-[#3f51b5] flex items-center gap-[8px] mr-[12px] hover:bg-[#303f9f] ml-auto text-[#fff]"
                 }
                 iconRight={<ArrowRightIconV2 />}
               >
-                <Link to={`/movie/list/${currentPageMovie}`}>View All</Link>
+                <Link to={`/movie/list/${currentPageMovie}`}>
+                  {t("content.viewAll")}
+                </Link>
               </Button>
             </div>
 
-            <TabPanel>
-              <TabsUi
-                items={topRateds}
-                customWrapperClass={
-                  "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6"
-                }
-              />
-            </TabPanel>
             <TabPanel>
               <TabsUi
                 items={upComings}
@@ -142,43 +119,47 @@ const Home = () => {
       {/* trending moie */}
 
       <div className="grid-system wide">
-        <div className="px-[10px]">
+        <div className="relative px-[10px] pb-[20px] before:absolute before:content-[''] before:top-[100%] before-left-[0] before:w-[calc(100%-20px)] before:h-[2px] before:bg-[#5a4c4c]">
           <div className="pb-[36px]">
             <h4 className="text-[25px] pt-[30px] pb-5 text-[var(--white-color)] lg:text-[30px]">
-              TOP TRENDING
+              {t("content.topTrending")}
             </h4>
             <Button
               className={
-                "bg-[#3f51b5] flex items-center gap-[8px] hover:bg-[#303f9f] ml-auto text-[var(--white-color)] mr-0"
+                "bg-[#3f51b5] flex items-center gap-[8px] hover:bg-[#303f9f] ml-auto text-[#fff] mr-0"
               }
               iconRight={<ArrowRightIconV2 />}
             >
-              <Link to={`/tv/list/${currentPageTv}`}>View All</Link>
+              <Link to={`/tv/list/${currentPageTv}`}>
+                {t("content.viewAll")}
+              </Link>
             </Button>
           </div>
           <MainSlide
             items={trendings}
             customClassName="relative top-0 left-0 w-[100%!important] pb-[40px]"
             customClassNameImage={"h-[250px] sm:h-[400px]"}
-            customBreakPoints={{
-              "@0.00": {
-                slidesPerView: 2,
-                spaceBetween: 18,
-              },
-              "@0.75": {
-                slidesPerView: 3,
-                spaceBetween: 18,
-              },
-              "@1.00": {
-                slidesPerView: 4,
-                spaceBetween: 18,
-              },
-              "@1.50": {
-                slidesPerView: 5,
-                spaceBetween: 18,
-              },
-            }}
+            customBreakPoints={SLIDE_NO_BACKDROP}
+            overlay
           />
+        </div>
+        <div className="px-[10px]">
+          <div className="pb-[36px]">
+            <h4 className="text-[25px] pt-[30px] pb-5 text-[var(--white-color)] lg:text-[30px]">
+              {t("content.airingToday")}
+            </h4>
+            <Button
+              className={
+                "bg-[#3f51b5] flex items-center gap-[8px] hover:bg-[#303f9f] ml-auto text-[#fff] mr-0"
+              }
+              iconRight={<ArrowRightIconV2 />}
+            >
+              <Link to={`/tv/list/${currentPageTv}`}>
+                {t("content.viewAll")}
+              </Link>
+            </Button>
+          </div>
+          <AiringToday items={airingToday} />
         </div>
       </div>
       <div className="bg-[url('https://image.tmdb.org/t/p/w1280/tIX6j3NzadlwGcJ52nuWdmtOQkg.jpg')] pt-[50px] bg-cover bg-fixed ">
@@ -189,14 +170,14 @@ const Home = () => {
               alt=""
               className="object-cover h-[530px] rounded-[10px] sm:h-[400px]"
             />
-            <div className="flex flex-col text-[var(--white-color)] order-1">
+            <div className="flex flex-col text-[#fff] order-1">
               <div className="flex flex-col gap-[8px] order-2 sm:order-1">
                 <i className="text-[2.5rem]">
                   {topPopularMovie.original_title}
                 </i>
                 <span className="flex items-center gap-[8px] text-[1.4rem] pb-[10px]">
                   <span>Ngày cập nhập:</span>
-                  <span className="text-[#f9ab00]">
+                  <span className="text-[var(--color-text)]">
                     {topPopularMovie.release_date}
                   </span>
                 </span>
@@ -220,11 +201,11 @@ const Home = () => {
                 to={`/detailmovie/movie/${topPopularMovie.id}`}
                 className="order-4 w-[fit-content]"
               >
-                <button className="px-[15px] py-[15px] bg-[#7f5e16] flex items-center gap-[8px] rounded-[10px] hover:bg-[#f9ab00] transition-all">
+                <button className="px-[15px] py-[15px] bg-[#7f5e16] flex items-center gap-[8px] rounded-[10px] hover:bg-[var(--color-text)] transition-all">
                   <span>
                     <ArrowRightIconV3 />
                   </span>
-                  <span>WATCH NOW</span>
+                  <span>{t("detailPage.header.watchNow")}</span>
                 </button>
               </Link>
             </div>

@@ -44,7 +44,7 @@ const Search = () => {
             <input
               type="text"
               placeholder="Search here"
-              className=" py-[8px] px-[12px] text-[1.8rem] italic flex-1 rounded-[10px]"
+              className=" py-[8px] px-[12px] text-[1.8rem] italic flex-1 rounded-[10px]  border-[2px] border-solid border-(var(--white-color))"
               value={searchValue}
               onChange={handleInput}
             />

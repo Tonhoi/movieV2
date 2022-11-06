@@ -15,7 +15,7 @@ const Pagination = ({ totalPage, onClick }) => {
         nextLabel=">"
         pageRangeDisplayed={5}
         marginPagesDisplayed={2}
-        pageCount={Math.ceil(totalPages)}
+        pageCount={500}
         previousLabel="<"
         pageClassName="page-item"
         pageLinkClassName="page-link"
