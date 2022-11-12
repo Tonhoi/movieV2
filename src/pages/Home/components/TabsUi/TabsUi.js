@@ -47,7 +47,7 @@ const TabsUi = ({
                   alt=""
                 />
                 <div className="absolute top-[12px] left-[12px] flex bg-[#333] justify-center items-center text-[1.3rem] w-[40px] h-[40px] rounded-full border-2 border-[var(--color-text)] font-bold text-[#fff]">
-                  {item.vote_average}
+                  {item.vote_average?.toFixed(1)}
                 </div>
               </div>
               <div className="wrapper-title pt-[16px] px-[16px] pb-[24px] hover:text-[var(--color-text)] cursor-pointer transition-colors">

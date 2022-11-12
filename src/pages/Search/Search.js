@@ -51,7 +51,9 @@ const Search = () => {
           </div>
           <div className=" text-[var(--white-color)] pb-[20px]">
             <span className="text-[1.8rem] mb-[20px] mt-[12px] block">
-              Có {searchResult.length} kết quả cho từ khóa "{debounce}"
+              {searchResult.length === 0
+                ? "Bạn chưa tìm kiếm nội dung nào 😅"
+                : `Có ${searchResult.length} kết quả cho từ khóa "${debounce}"`}
             </span>
 
             {searchResult?.length > 0 ? (

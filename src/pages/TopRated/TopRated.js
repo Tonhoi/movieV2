@@ -16,7 +16,6 @@ const TopRated = () => {
   const loading = useSelector((prev) => prev.callTopRated.loading);
   const topRated = useSelector((prev) => prev.callTopRated.callTopRateds);
   const currentPage = useSelector((prev) => prev.callTopRated.counter);
-  console.log(topRated);
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -60,7 +59,7 @@ const TopRated = () => {
             />
           </SkeletonTheme>
         )}
-        <Pagination totalPage={topRated.total_pages} onClick={handleHref} />
+        <Pagination totalPage={topRated} onClick={handleHref} />
       </div>
     </>
   );

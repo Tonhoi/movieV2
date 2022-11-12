@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "../../components/common/Pagination";
 import { Filter } from "../../layouts/DefaultLayouts/Filter";
 import { callTvMovie, setCounter } from "../../store/callTvMovie/slice";
@@ -10,12 +10,13 @@ import { TabsUi } from "../Home/components/TabsUi";
 const Tv = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { page } = useParams();
 
   const loading = useSelector((prev) => prev.callTvMovies.loading);
   const tvMovies = useSelector((prev) => prev.callTvMovies.callTvMovie);
   const currentPage = useSelector((prev) => prev.callTvMovies.counter);
-  console.log(tvMovies);
+  // console.log(tvMovies);
 
   // const [state, setState] = useState([
   //   {
@@ -27,22 +28,27 @@ const Tv = () => {
 
   useEffect(() => {
     const fetch = async () => {
+      const sort = location.search.replace("?", "&");
       try {
-        await dispatch(callTvMovie(page));
+        await dispatch(callTvMovie([page, sort]));
       } catch (error) {
         console.log("có lỗi xảy ra");
       }
     };
 
     fetch();
-  }, [currentPage, dispatch, page, navigate]);
+  }, [currentPage, dispatch, page, navigate, location]);
 
   const handleHref = useCallback(
     (e) => {
-      navigate(`/tv/list/${e.selected + 1}`);
+      if (location.search === " ") {
+        navigate(`/tv/list/${e.selected + 1}`);
+      } else {
+        navigate(`/tv/list/${e.selected + 1}${location.search}`);
+      }
       dispatch(setCounter(e.selected + 1));
     },
-    [dispatch, navigate]
+    [dispatch, navigate, location.search]
   );
 
   return (
@@ -72,7 +78,7 @@ const Tv = () => {
           </SkeletonTheme>
         )}
 
-        <Pagination totalPage={tvMovies.total_pages} onClick={handleHref} />
+        <Pagination totalPage={tvMovies} onClick={handleHref} />
       </div>
     </>
   );

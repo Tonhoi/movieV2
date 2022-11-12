@@ -1,0 +1,18 @@
+.star-block {
+  color: #deded9;
+  display: flex;
+  img {
+    cursor: pointer;
+    margin-right: 4px;
+    object-fit: cover;
+  }
+}
+
+.star.active {
+  color: #b3b024;
+}
+
+.star_message {
+  font-size: 16px;
+  margin-top: 8px;
+}

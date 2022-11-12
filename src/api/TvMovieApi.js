@@ -2,9 +2,10 @@ import LanguageApi from "../hooks/LanguageApi";
 import axiosClient from "./axiosClient";
 
 const TvMovieApi = {
-  getByPage(currentPage = 1) {
+  getByPage(params) {
     const { language } = LanguageApi();
-    const url = `/discover/tv?api_key=9568cdb91fe0c79af33b87e59bb90d25&language=${language}&sort_by=popularity.desc&page=${currentPage}&release_date.gte=&release_date.lte=&vote_average.gte=&vote_average.lte=&with_genres=&with_original_language=`;
+    const [page = 1, sort] = params;
+    const url = `/discover/tv?api_key=9568cdb91fe0c79af33b87e59bb90d25&language=${language}&sort_by=popularity.desc&page=${page}${sort}`;
     return axiosClient.get(url);
   },
 };

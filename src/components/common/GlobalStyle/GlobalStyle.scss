@@ -1,13 +1,16 @@
 :root {
-  --white-color: #fff;
   --black-color: #000;
-  --primary-color: #1a191f;
   --color-text: #f9ab00;
+
+  --bg-options: #eee;
+  --white-color: #000;
+  --primary-color: #fff;
 }
 
 [data-theme="light"] {
-  --white-color: #000;
-  --primary-color: #fff;
+  --primary-color: #1a191f;
+  --white-color: #fff;
+  --bg-options: #333;
 }
 
 * {
@@ -21,5 +24,6 @@ html {
 
 body {
   font-size: 1.6rem;
+  user-select: none;
   -webkit-tap-highlight-color: transparent;
 }

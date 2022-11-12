@@ -6,7 +6,8 @@ import "./Pagination.scss";
 let totalPages;
 const Pagination = ({ totalPage, onClick }) => {
   const { page } = useParams();
-  totalPages = Math.ceil(totalPage / 24);
+  totalPages = Math.ceil(totalPage.total_results / 20);
+  console.log(totalPages);
 
   return (
     <div className={"wrapper-pagination"}>
@@ -15,7 +16,7 @@ const Pagination = ({ totalPage, onClick }) => {
         nextLabel=">"
         pageRangeDisplayed={5}
         marginPagesDisplayed={2}
-        pageCount={500}
+        pageCount={totalPages}
         previousLabel="<"
         pageClassName="page-item"
         pageLinkClassName="page-link"
@@ -27,7 +28,7 @@ const Pagination = ({ totalPage, onClick }) => {
         breakClassName="page-item"
         breakLinkClassName="page-link"
         containerClassName="pagination"
-        activeClassName="active"
+        activeClassName="active "
         onPageChange={onClick}
         forcePage={Number(page) - 1}
       />

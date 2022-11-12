@@ -1,16 +1,27 @@
 export const AvatarIcon = ({ className, width = "2rem", height = "2rem" }) => (
   <svg
+    xmlns="http://www.w3.org/2000/svg"
     className={className}
-    focusable="false"
-    viewBox="0 0 24 24"
-    aria-hidden="true"
     width={width}
     height={height}
+    viewBox="0 0 512 512"
   >
+    <title>Person</title>
     <path
-      fill="currentColor"
-      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z"
-    ></path>
+      d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="32"
+    />
+    <path
+      d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
+      fill="none"
+      stroke="currentColor"
+      strokeMiterlimit="10"
+      strokeWidth="32"
+    />
   </svg>
 );
 
@@ -231,7 +242,7 @@ export const LikeIcon = ({ className, width = "2rem", height = "2rem" }) => (
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    stroke-width="1.5"
+    strokeWidth="1.5"
     stroke="currentColor"
     className={className}
     width={width}
@@ -250,7 +261,7 @@ export const UnLikeIcon = ({ className, width = "2rem", height = "2rem" }) => (
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    stroke-width="1.5"
+    strokeWidth="1.5"
     stroke="currentColor"
     className={className}
     width={width}
@@ -260,6 +271,110 @@ export const UnLikeIcon = ({ className, width = "2rem", height = "2rem" }) => (
       strokeLinecap="round"
       strokeLinejoin="round"
       d="M7.5 15h2.25m8.024-9.75c.011.05.028.1.052.148.591 1.2.924 2.55.924 3.977a8.96 8.96 0 01-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398C20.613 14.547 19.833 15 19 15h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 00.303-.54m.023-8.25H16.48a4.5 4.5 0 01-1.423-.23l-3.114-1.04a4.5 4.5 0 00-1.423-.23H6.504c-.618 0-1.217.247-1.605.729A11.95 11.95 0 002.25 12c0 .434.023.863.068 1.285C2.427 14.306 3.346 15 4.372 15h3.126c.618 0 .991.724.725 1.282A7.471 7.471 0 007.5 19.5a2.25 2.25 0 002.25 2.25.75.75 0 00.75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 002.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384"
+    />
+  </svg>
+);
+
+export const SunIcon = ({ className, width = "2rem", height = "2rem" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    width={width}
+    height={height}
+    viewBox="0 0 512 512"
+  >
+    <title>Sunny</title>
+    <path
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeMiterlimit="10"
+      strokeWidth="32"
+      d="M256 48v48M256 416v48M403.08 108.92l-33.94 33.94M142.86 369.14l-33.94 33.94M464 256h-48M96 256H48M403.08 403.08l-33.94-33.94M142.86 142.86l-33.94-33.94"
+    />
+    <circle
+      cx="256"
+      cy="256"
+      r="80"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeMiterlimit="10"
+      strokeWidth="32"
+    />
+  </svg>
+);
+
+export const HeartIcon = ({ className, width = "2rem", height = "2rem" }) => (
+  <svg
+    stroke="currentColor"
+    fill="currentColor"
+    strokeWidth="0"
+    viewBox="0 0 1024 1024"
+    className={className}
+    height={height}
+    width={width}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill="currentColor"
+      d="M923 283.6a260.04 260.04 0 0 0-56.9-82.8 264.4 264.4 0 0 0-84-55.5A265.34 265.34 0 0 0 679.7 125c-49.3 0-97.4 13.5-139.2 39-10 6.1-19.5 12.8-28.5 20.1-9-7.3-18.5-14-28.5-20.1-41.8-25.5-89.9-39-139.2-39-35.5 0-69.9 6.8-102.4 20.3-31.4 13-59.7 31.7-84 55.5a258.44 258.44 0 0 0-56.9 82.8c-13.9 32.3-21 66.6-21 101.9 0 33.3 6.8 68 20.3 103.3 11.3 29.5 27.5 60.1 48.2 91 32.8 48.9 77.9 99.9 133.9 151.6 92.8 85.7 184.7 144.9 188.6 147.3l23.7 15.2c10.5 6.7 24 6.7 34.5 0l23.7-15.2c3.9-2.5 95.7-61.6 188.6-147.3 56-51.7 101.1-102.7 133.9-151.6 20.7-30.9 37-61.5 48.2-91 13.5-35.3 20.3-70 20.3-103.3.1-35.3-7-69.6-20.9-101.9zM512 814.8S156 586.7 156 385.5C156 283.6 240.3 201 344.3 201c73.1 0 136.5 40.8 167.7 100.4C543.2 241.8 606.6 201 679.7 201c104 0 188.3 82.6 188.3 184.5 0 201.2-356 429.3-356 429.3z"
+    ></path>
+    <path
+      fill="currentColor"
+      d="M679.7 201c-73.1 0-136.5 40.8-167.7 100.4C480.8 241.8 417.4 201 344.3 201c-104 0-188.3 82.6-188.3 184.5 0 201.2 356 429.3 356 429.3s356-228.1 356-429.3C868 283.6 783.7 201 679.7 201z"
+    ></path>
+  </svg>
+);
+
+export const MuiIcon = ({ className, width = "2rem", height = "2rem" }) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    focusable="false"
+    viewBox="0 0 24 24"
+    ariaHidden="true"
+  >
+    <path
+      fill="currentColor"
+      d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"
+    ></path>
+  </svg>
+);
+
+export const DeleteIcon = ({ className, width = "2rem", height = "2rem" }) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    focusable="false"
+    viewBox="0 0 24 24"
+    ariaHidden="true"
+  >
+    <path
+      fill="currentColor"
+      d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+    ></path>
+  </svg>
+);
+
+export const CloseIcon = ({ className, width = "2rem", height = "2rem" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    width={width}
+    height={height}
+    viewBox="0 0 512 512"
+  >
+    <title>Close</title>
+    <path
+      fill="currentColor"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="32"
+      d="M368 368L144 144M368 144L144 368"
     />
   </svg>
 );
