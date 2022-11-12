@@ -6,7 +6,8 @@
         "topRated": "TOP RATED",
         "search": "search",
         "option": {
-            "login": "Login"
+            "login": "Login",
+            "logout": "LOGOUT"
         }
     },
     "content": {

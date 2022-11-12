@@ -62,7 +62,7 @@ const MainSlide = ({
                       }
                     >
                       <div className="absolute z-[19] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex items-center justify-center group/text">
-                        <button className=" p-[15px] text-[1.4rem] border border-solid border-[var(--color-text)] rounded-[15px] text-[var(--white-color)] group-hover/text:bg-[#7f5e16]">
+                        <button className=" p-[15px] text-[1.4rem] border border-solid border-[var(--color-text)] rounded-[15px] text-[#fff] group-hover/text:bg-[#7f5e16]">
                           WATCHING NOW
                         </button>
                       </div>

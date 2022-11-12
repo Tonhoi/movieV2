@@ -7,7 +7,7 @@ const Error = () => {
   return (
     <div
       className={
-        "wrapper min-h-[100vh] flex flex-col items-center justify-center bg-[var(--white-color)]"
+        "wrapper min-h-[100vh] flex flex-col items-center justify-center bg-[#fff]"
       }
     >
       <h1 className="text-[4.5rem] text=[var(--black-color)] font-bold">

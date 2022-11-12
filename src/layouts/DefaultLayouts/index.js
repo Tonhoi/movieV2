@@ -2,7 +2,6 @@ import React from "react";
 
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
-import Toggle from "../../components/common/Toggle/Toggle";
 
 const index = ({ children }) => {
   return (
@@ -14,7 +13,6 @@ const index = ({ children }) => {
       <div className="footer bg-[var(--primary-color)] border border-[#5a4c4c] border-r-transparent border-b-transparent border-l-transparent mt-auto py-[40px] ">
         <Footer />
       </div>
-      <Toggle />
     </div>
   );
 };

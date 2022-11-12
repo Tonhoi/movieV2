@@ -20,7 +20,6 @@ const Watch = () => {
   const { type, id, season, esp } = useParams();
   const [detailMovie, setDetailMovie] = useState([]);
   const [seasonMovie, setSeasonMovie] = useState([]);
-  console.log(seasonMovie);
 
   useEffect(() => {
     const fetch = async () => {

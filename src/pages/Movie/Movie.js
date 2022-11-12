@@ -14,12 +14,12 @@ import {
   setCounter,
 } from "../../store/callDiscoverMovie/slice";
 import { Filter } from "../../layouts/DefaultLayouts/Filter";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const Movie = () => {
-  console.log("re-render");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { page } = useParams();
 
   const loading = useSelector((prev) => prev.callDiscoverMovies.loading);
@@ -39,22 +39,27 @@ const Movie = () => {
 
   useEffect(() => {
     const fetch = async () => {
+      const sort = location.search.replace("?", "&");
       try {
-        await dispatch(callDiscoverMovie(page));
+        await dispatch(callDiscoverMovie([page, sort]));
       } catch (error) {
         console.log("có lỗi xảy ra");
       }
     };
 
     fetch();
-  }, [dispatch, page, navigate]);
+  }, [dispatch, page, navigate, location]);
 
   const handleHref = useCallback(
     (e) => {
-      navigate(`/movie/list/${e.selected + 1}`);
+      if (location.search === " ") {
+        navigate(`/movie/list/${e.selected + 1}`);
+      } else {
+        navigate(`/movie/list/${e.selected + 1}${location.search}`);
+      }
       dispatch(setCounter(e.selected + 1));
     },
-    [navigate, dispatch]
+    [navigate, dispatch, location.search]
   );
 
   return (
@@ -87,10 +92,7 @@ const Movie = () => {
           </SkeletonTheme>
         )}
 
-        <Pagination
-          totalPage={discoverMovies.total_pages}
-          onClick={handleHref}
-        />
+        <Pagination totalPage={discoverMovies} onClick={handleHref} />
       </div>
     </>
   );

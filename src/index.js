@@ -17,6 +17,11 @@ import ScrollToTop from "./hooks/ScrollToTop";
 const container = document.getElementById("root");
 const root = createRoot(container);
 
+// const loader = document.querySelector(".wrapper-loader");
+
+// const showLoader = () => loader.classList.remove("loader--hide");
+
+// const hideLoader = () => loader.classList.add("loader--hide");
 root.render(
   <Router>
     <Provider store={store}>

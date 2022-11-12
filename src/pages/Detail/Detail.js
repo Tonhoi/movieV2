@@ -1,14 +1,19 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { useTranslation } from "react-i18next";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  serverTimestamp,
+} from "firebase/firestore";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import CreditApi from "../../api/CreditApi";
-import DetailMovieApi from "../../api/DetailMovieApi";
 import { Button } from "../../components/common/Button";
-import { StarActiveIcon } from "../../components/common/Icons";
 import Image from "../../components/common/Images/Image";
 import { Overlay } from "../../components/common/Overlay";
 import { TabsUi } from "../Home/components/TabsUi";
@@ -19,24 +24,47 @@ import TopRatedApi from "../../api/TopRatedApi";
 import PopularMovieApi from "../../api/PopularMovieApi";
 import ImageMovieApi from "../../api/ImageMovieApi";
 import ReviewMovieApi from "../../api/ReviewMovieApi";
+import { useDispatch, useSelector } from "react-redux";
+import { callDetailMovie } from "../../store/CallDetailMovie/slice";
+import Star from "../../components/common/Star/Star";
+import { auth, db } from "../../firebase/firebase-config";
+import axios from "axios";
 const Detail = () => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const { type, id } = useParams();
+  const navigate = useNavigate();
+
+  const database = collection(db, "star");
 
   const [popularMovies, setPopularMovies] = useState([]);
   const [topRateds, setTopRateds] = useState([]);
 
-  const [detailMovie, setDetailMovie] = useState([]);
   const [credits, setCredits] = useState([]);
   const [imageMovie, setImageMovie] = useState([]);
   const [reviewMovie, setReviewMovie] = useState([]);
 
   const [isTrailerMovie, setIsTrailerMovie] = useState(false);
-  console.log(detailMovie);
+
+  // const [watchListsTv, setWatchListsTv] = useState([]);
+
+  const detailMovie = useSelector(
+    (prev) => prev.callDetailMovie.callDetailMovie
+  );
+  const session_id = localStorage.getItem("session_id");
+
   useEffect(() => {
     const fetch = async () => {
       const popularMovie = await PopularMovieApi.getByPage();
       const topRated = await TopRatedApi.getByPage();
+      // const watchListTv = await axios.get(
+      //   `https://api.themoviedb.org/3/account/15312246/watchlist/tv?api_key=9568cdb91fe0c79af33b87e59bb90d25&language=en-US&session_id=${session_id}&sort_by=created_at.asc&page=1`
+      // );
+
+      // console.log(Array.from(...watchListTv.data.results).includes(id));
+      // console.log(...watchListTv.data.results);
+
+      // setWatchListsTv(watchListTv.data.results);
 
       setPopularMovies(popularMovie.results.slice(0, 6));
 
@@ -47,14 +75,16 @@ const Detail = () => {
   }, []);
   useEffect(() => {
     const fetch = async () => {
-      const detailMovie = await DetailMovieApi.getById(type, id);
+      // const detailMovie = await DetailMovieApi.getById(type, id);
       const credit = await CreditApi.getById(type, id);
       const imageMovie = await ImageMovieApi.getById(type, id);
       const reviewMovie = await ReviewMovieApi.getById(type, id);
 
       setReviewMovie(reviewMovie.results);
 
-      setDetailMovie(detailMovie);
+      // setDetailMovie(detailMovie);
+      await dispatch(callDetailMovie([type, id]));
+
       setCredits(credit.cast);
       setImageMovie(imageMovie.backdrops);
     };
@@ -65,8 +95,123 @@ const Detail = () => {
     setIsTrailerMovie(true);
   };
 
+  // handle add star
+
+  // useEffect(() => {
+  //   onSnapshot(database, (snapshot) => {
+  //     let star = [];
+  //     snapshot.docs.find((doc) => {
+  //       if (
+  //         doc.data().uid === auth.currentUser.uid &&
+  //         doc.data().movie_id === id &&
+  //         doc.data().star_count > 0
+  //       ) {
+  //         console.log("đã tồn tại");
+  //       }
+  //     });
+  //   });
+  // }, []);
+
+  const onClickStar = async (star) => {
+    if (auth.currentUser === null) return navigate("/login");
+    const guest_session_id = await axios.get(
+      "https://api.themoviedb.org/3/authentication/guest_session/new?api_key=9568cdb91fe0c79af33b87e59bb90d25"
+    );
+    await axios({
+      method: "post",
+      url: `https://api.themoviedb.org/3/${type}/${id}/rating?api_key=9568cdb91fe0c79af33b87e59bb90d25&guest_session_id=${guest_session_id.data.guest_session_id}&session_id=${session_id}`,
+      data: {
+        value: star,
+      },
+    });
+    toast.success("Thank you for rating the movie !!");
+  };
+
+  let titleButonWatchList = "Add to watch list";
+
+  const handleAddToWatchList = async (e) => {
+    if (auth.currentUser === null) return navigate("/login");
+    try {
+      // const isWatchList = await watchListsTv.some((watchListsTv) => {
+      //   return watchListsTv.id === +id;
+      // });
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/account?api_key=9568cdb91fe0c79af33b87e59bb90d25&session_id=${session_id}`
+      );
+      await axios({
+        method: "post",
+        url: `https://api.themoviedb.org/3/account/${res.data.id}/watchlist?api_key=9568cdb91fe0c79af33b87e59bb90d25&session_id=${session_id}`,
+        data: {
+          media_type: type,
+          media_id: id,
+          watchlist: true,
+        },
+      });
+      window.location.reload();
+      toast.success("Add to watch list success !!");
+      // if (!isWatchList) {
+      // } else {
+      //   await axios({
+      //     method: "post",
+      //     url: `https://api.themoviedb.org/3/account/${res.data.id}/watchlist?api_key=9568cdb91fe0c79af33b87e59bb90d25&session_id=${session_id}`,
+      //     data: {
+      //       media_type: type,
+      //       media_id: id,
+      //       watchlist: false,
+      //     },
+      //   });
+      //   toast.success("delete to watch list success !!", {
+      //     position: "top-right",
+      //     autoClose: 5000,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //     theme: "colored",
+      //   });
+      //   titleButonWatchList = "add to watch list";
+      // }
+    } catch (e) {
+      toast.error("Add to watch list fail !!");
+    }
+  };
+
+  const handleFavoriteMovie = async () => {
+    if (auth.currentUser === null) return navigate("/login");
+    try {
+      const session_id = localStorage.getItem("session_id");
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/account?api_key=9568cdb91fe0c79af33b87e59bb90d25&session_id=${session_id}`
+      );
+      const res2 = await axios({
+        method: "post",
+        url: `
+        https://api.themoviedb.org/3/account/${res.data.id}/favorite?api_key=9568cdb91fe0c79af33b87e59bb90d25&session_id=${session_id}`,
+        data: {
+          media_type: type,
+          media_id: id,
+          favorite: true,
+        },
+      });
+      toast.success("Add to watch list success !!");
+    } catch (error) {
+      toast.error("Add to watch list fail !!");
+    }
+  };
+
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick={true}
+        pauseOnHover={true}
+        draggable={true}
+        progress={undefined}
+        theme="colored"
+      />
       <div className="wraper-detail">
         <div
           className={`relative bg-cover object-cover aspect-[2/1] bg-top w-full h-[100%] `}
@@ -106,13 +251,9 @@ const Detail = () => {
                       </Button>
                     ))}
                 </div>
-                <div className="ratings flex gap-[8px]">
+                <div className="ratings flex gap-[8px] items-center">
                   <div className="star-ratings flex gap-[1px]">
-                    <StarActiveIcon className={"w-[2.4rem] h-[2.4rem]"} />
-                    <StarActiveIcon className={"w-[2.4rem] h-[2.4rem]"} />
-                    <StarActiveIcon className={"w-[2.4rem] h-[2.4rem]"} />
-                    <StarActiveIcon className={"w-[2.4rem] h-[2.4rem]"} />
-                    <StarActiveIcon className={"w-[2.4rem] h-[2.4rem]"} />
+                    <Star onClickStar={onClickStar} />
                   </div>
                   <span className="ratings-count">
                     ({detailMovie.vote_count} vote)
@@ -144,8 +285,17 @@ const Detail = () => {
                     className={
                       "bg-[#34495e] py-[16px] md:py-[10px] hover:opacity-70"
                     }
+                    onClick={handleFavoriteMovie}
                   >
                     {t("detailPage.header.addToFavorites")}
+                  </Button>
+                  <Button
+                    className={
+                      "bg-[#34495e] py-[16px] md:py-[10px] hover:opacity-70"
+                    }
+                    onClick={handleAddToWatchList}
+                  >
+                    {titleButonWatchList}
                   </Button>
                 </div>
               </div>

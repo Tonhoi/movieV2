@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 // tabs ui
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -26,6 +26,8 @@ import {
 import { UpCommingApi, NowPlayingApi, TrendingApi } from "../../api";
 import AiringTodayApi from "../../api/AiringTodayApi";
 import AiringToday from "./components/AiringToday/AiringToday";
+import axios from "axios";
+import { auth } from "../../firebase/firebase-config";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -38,6 +40,7 @@ const Home = () => {
   const popularMovies = useSelector(
     (prev) => prev.callPopularMovie.callPopularMovie.results
   );
+  const sessionId = useSelector((prev) => prev.createSession.createSession);
 
   const [upComings, setUpComings] = useState([]);
   const [nowPlayings, setNowPlayings] = useState([]);

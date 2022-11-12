@@ -6,7 +6,8 @@
         "topRated": "BXH",
         "search": "Tìm kiếm",
         "option": {
-            "login": "Đăng nhập"
+            "login": "Đăng nhập",
+            "logout": "Đăng xuất"
         }
     },
     "content": {

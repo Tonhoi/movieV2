@@ -12,7 +12,7 @@
     justify-content: center;
     gap: 8px;
     flex-wrap: wrap;
-    li {
+    .page-item {
       padding: 4px;
       border-radius: 4px;
       border: 1px solid rgba(0, 0, 0, 0.23);
@@ -20,10 +20,16 @@
       background-color: transparent;
 
       cursor: pointer;
-      a {
+      color: var(--white-color);
+      &.active,
+      &:hover {
+        color: #fff;
+      }
+
+      .page-link {
         padding: 4px;
 
-        color: var(--white-color);
+        // color: var(--white-color);
 
         user-select: none;
       }

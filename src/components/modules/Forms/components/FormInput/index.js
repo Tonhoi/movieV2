@@ -9,7 +9,7 @@ const FormControlInput = forwardRef(
             type={type}
             className="form-input py-[18.5px] px-[14px]  bg-transparent w-full outline-none focus:outline-[#3f51b5]"
             placeholder=" "
-            autoComplete="true"
+            autoComplete="off"
             onChange={onChange}
             ref={ref}
             {...props}
