@@ -16,13 +16,13 @@ const Wrapper = ({
     <div className="px-[10px] pb-[20px]">
       <div className="mx-[-10px] bg-[url(https://my-movie-tmdb.netlify.app/static/media/banner-profile.e9a58d20.jpg)] pt-[100px] pb-[50px] object-cover bg-no-repeat bg-center bg-cover">
         <div className="grid-system wide">
-          <div className="flex gap-[40px] px-[10px]">
+          <div className="grid grid-cols-1 sm:grid-cols-[150px,1fr] gap-[40px] px-[10px]">
             <img
               src="https://fullstack.edu.vn/static/media/fallback-avatar.155cdb2376c5d99ea151.jpg"
               alt=""
-              className="w-[157px] h-[157px] rounded-full"
+              className="w-[157px] h-[157px] rounded-full mx-auto"
             />
-            <div className="text-[#fff]">
+            <div className="text-[#fff] text-center sm:text-left">
               <span className="block text-[3rem]">Tôn Hội</span>
               <div className="pt-[20px] flex items-center">
                 <div className="py-[10px] px-[20px]">Trung Bình Điểm phim</div>
